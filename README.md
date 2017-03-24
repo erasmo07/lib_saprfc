@@ -19,7 +19,7 @@ To install use pip:
 
 Or clone the repo:
 
-    $ git clone https://github.com/emontes/lib_saprfc.git
+    $ git clone https://erasmo_montes@bitbucket.org/erasmo_montes/lib-saprfc.git 
     $ python setup.py install
     
 Contributing
