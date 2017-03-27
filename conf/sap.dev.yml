@@ -1,0 +1,8 @@
+ashost: 87.4.5.231 
+sysnr: "07"
+client: "320"
+user: dchot
+passwd: 1234567
+lang: ES
+trace: 3
+loglevel: warn
