@@ -1,4 +1,5 @@
 import sys
+import os
 try:
     from sapnwrfc import base as sap_base
 except:
@@ -17,14 +18,17 @@ class ApiClient(object):
 
     def __init__(self):
         self._config()
-        self._connection = self._connect()
+        self._connection = None
+        self._connect()
 
     def _config(self):
         """
         This load the config to connect to sap.
         It fuction does not return value.
         """
-        sap_base.config_location = 'conf/sap.dev.yml'
+        project_root = os.path.dirname(__file__)
+        sap_base.config_location = os.path.join(
+            project_root, 'conf/sap.dev.yml')
         sap_base.load_config()
 
     def _connect(self):
@@ -50,7 +54,7 @@ class ApiClient(object):
         Return:
             function: With all parameter was set
         """
-        for key, value in parameters:
+        for key, value in parameters.items():
             if hasattr(function, key):
                 getattr(function, key)(value)
         return function
@@ -89,8 +93,8 @@ class ApiClient(object):
             # Execute Funtion in SAP
             function.invoke()
             return function.DATA.value
-        except Exception as e:
-            print e
+        except Exception as error:
+            print error
             sys.exit(1)
 
     def __del__(self):
