@@ -36,5 +36,6 @@ setup(
     author='Erasmo Montes',
     install_requires=install_requires,
     dependency_links=dependency_links,
-    author_email='emontes@puntacana.com'
+    author_email='emontes@puntacana.com',
+    test_suite='nose.collector',
 )
