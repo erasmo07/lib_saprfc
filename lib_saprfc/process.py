@@ -39,3 +39,16 @@ class ProcessQuery(object):
                                 for items in self._fieldsname]
                 return self._fields
             return
+
+
+class ProcessError(object):
+
+    def __init__(self, errors):
+        self._errors = errors
+        self._key = "ERROR"
+
+    def process_data(self):
+        result = list()
+        for dictionary in self._errors:
+            result.append(dictionary.get(self._key).strip())
+        return result
