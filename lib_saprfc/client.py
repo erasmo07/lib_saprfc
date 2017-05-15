@@ -20,7 +20,8 @@ class ApiClient(object):
 
     def __init__(self):
         self._config()
-        self._connection = self._connect()
+        self._connection = None
+        self._connect()
 
     def _config(self):
         """
