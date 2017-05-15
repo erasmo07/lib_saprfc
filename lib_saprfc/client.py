@@ -29,7 +29,7 @@ class ApiClient(object):
         """
         project_root = os.path.dirname(__file__)
         sap_base.config_location = os.path.join(
-            project_root, 'conf/sap.dev.yml')
+            project_root, 'conf/sap.qa.yml')
         sap_base.load_config()
 
     def _connect(self):
