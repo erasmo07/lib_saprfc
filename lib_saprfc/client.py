@@ -56,7 +56,7 @@ class ApiClient(object):
         Return:
             function: With all parameter was set
         """
-        for key, value in parameters:
+        for key, value in parameters.items():
             try:
                 getattr(function, key)(value)
             except (AttributeError, TypeError):
