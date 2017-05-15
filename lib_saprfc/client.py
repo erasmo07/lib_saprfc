@@ -119,7 +119,7 @@ class ApiClient(object):
         function = function_discover.create_function_call()
 
         # Set parameters
-        self._add_paramter(function, value)
+        self._add_parameter(function, values)
 
         # Execute Function in sap
         function.invoke()
