@@ -124,11 +124,27 @@ class ApiClient(object):
         # Execute Function in sap
         function.invoke()
 
-        if not hasattr(function, 'I_ERROR'):
-            if hasattr(function, 'DATA'):
-                return function.DATA.value
-            return
-        return function.I_ERROR.I_ERROR
+        # return values
+        return self.return_value(function)
+
+    def return_value(self, function):
+        """
+        This method process the result of consult sap
+        and return the final result.
+
+        Parameters:
+            function of sap
+        Return:
+            In case all are great List(dictionary)
+            In case are error a exception with errors.
+        """
+        structure = function.handle.parameters
+        if 'I_ERROR' in structure.keys() and isinstance(
+                structure.get('I_ERROR').values, list):
+            if structure.get('I_ERROR').values != []:
+                process_error = ProcessError(structure.get('I_ERROR').values)
+                raise IError(process_error.errors)
+        return ProcessStructure(structure).data
 
     def __del__(self):
         print 'Cerrando conexion sap'
