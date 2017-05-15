@@ -85,25 +85,23 @@ class ApiClient(object):
         Return:
             Value send sap.
         """
-        try:
-            # Discover function in sap
-            function_discover = self._discover_function(rfc_function)
+        # Discover function in sap
+        function_discover = self._discover_function(rfc_function)
 
-            # Create call
-            function = function_discover.create_function_call()
+        # Create call
+        function = function_discover.create_function_call()
 
-            # Set parameters
-            if parameters:
-                self._add_paramter(function, **parameters)
+        # Set parameters
+        if parameters:
+            self._add_parameter(function, parameters)
 
-            # Execute Funtion in SAP
-            function.invoke()
-            return function.DATA.value
-        except Exception as e:
-            print e
-            sys.exit(1)
+        # Execute Funtion in SAP
+        function.invoke()
 
-    def post(self, rfc_function, value):
+        # Return Values
+        return self.return_value(function)
+
+    def post(self, rfc_function, values):
         """
         This method call a funtion in sap that insert values.
 
