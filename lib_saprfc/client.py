@@ -60,9 +60,9 @@ class ApiClient(object):
             try:
                 getattr(function, key)(value)
             except (AttributeError, TypeError):
-                message = "La function {0} no tiene el atributo {0}".format(
-                    function.name, key)
-                raise exceptions.DoesNotHaveAttribute(message)
+                raise DontHaveAttribute(
+                    'La function {0} no tiene el atributo {1}.'.format(
+                        function.name, key))
         return function
 
     def _discover_function(self, rfc_function):
