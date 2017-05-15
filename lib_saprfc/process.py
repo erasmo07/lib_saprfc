@@ -15,6 +15,47 @@ This contait all class about to process data obtain to sap.
 """
 
 
+class ProcessGeneric(object):
+
+    def __init__(self, value_to_process):
+        self._value_to_process = value_to_process
+
+    def process_dictionary(self, dictionary):
+        result = dict()
+        for key, value in dictionary.items():
+            if isinstance(value, int):
+                result.update({key: value})
+            else:
+                result.update({key: value.strip()})
+        return result
+
+    def list_dictionary(self):
+        return [self.process_dictionary(dictionary)
+                for dictionary in self._value_to_process]
+
+    def dictionary(self):
+        return self.process_dictionary(self._value_to_process)
+
+
+class ProcessStructure(object):
+
+    def __init__(self, structure):
+        self._structure = structure
+        self.data = self.process_values()
+
+    def process_values(self):
+        result = dict()
+        for key, _object in self._structure.items():
+            if isinstance(_object.value, list):
+                result.update(
+                    {key: ProcessGeneric(_object.value).list_dictionary()})
+            elif isinstance(_object.value, dict):
+                result.update({key: ProcessGeneric(_object.value).dictionary()})
+            else:
+                result.update({key: _object.value})
+        return result
+
+
 class ProcessQuery(object):
     """ Class to process query sap. """
 
@@ -46,6 +87,7 @@ class ProcessError(object):
     def __init__(self, errors):
         self._errors = errors
         self._key = "ERROR"
+        self.errors = self.process_data()
 
     def process_data(self):
         result = list()
