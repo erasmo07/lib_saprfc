@@ -103,25 +103,25 @@ class ApiClient(object):
 
     def post(self, rfc_function, values):
         """
-        This method call a funtion in sap that insert values.
+        This method call a function in sap that insert values.
 
         Parameters:
             rfc_function str(): the name of function in sap.
             values dict(): all values that resive the function.
 
         Return:
-            Values send sap.
+            Value send sap.
         """
-        # Discover function in sap
+        # Discover function
         function_discover = self._discover_function(rfc_function)
 
-        # Create call
+        # Create call function
         function = function_discover.create_function_call()
 
         # Set parameters
         self._add_paramter(function, value)
 
-        # Execute Funtion in SAP
+        # Execute Function in sap
         function.invoke()
 
         if not hasattr(function, 'I_ERROR'):
