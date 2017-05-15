@@ -1,10 +1,11 @@
 import sys
 import os
-from . import exceptions
 try:
     from sapnwrfc import base as sap_base
 except:
     pass
+from exceptions import DontHaveAttribute, IError
+from process import ProcessError, ProcessStructure
 
 
 class ApiClient(object):
