@@ -51,7 +51,7 @@ class ApiClient(object):
     def _add_parameter(self, function, parameters):
         """ This function add attr to functon.
 
-        Paramter:
+        Parameter:
             function: The instance of function in sap.
         Return:
             function: With all parameter was set
