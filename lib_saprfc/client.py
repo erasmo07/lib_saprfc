@@ -47,7 +47,7 @@ class ApiClient(object):
             print error
             sys.exit(1)
 
-    def _add_paramter(self, function, **parameters):
+    def _add_parameter(self, function, parameters):
         """ This function add attr to functon.
 
         Paramter:
