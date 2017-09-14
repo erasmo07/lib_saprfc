@@ -7,7 +7,7 @@ author: Erasmo Montes
 [![Build
 Status](https://travis-ci.org/erasmo07/lib_saprfc.svg?branch=master)](https://travis-ci.org/erasmo07/lib_saprfc)
 [![Coverage
-Status](https://coveralls.io/repos/github/erasmo07/lib_saprfc/badge.svg)](https://coveralls.io/github/erasmo07/lib_saprfc)
+Status](https://coveralls.io/repos/github/erasmo07/lib_saprfc/badge.svg?branch=master)](https://coveralls.io/github/erasmo07/lib_saprfc?branch=master)
 
 Overview
 --------
