@@ -4,6 +4,9 @@ Lib Sap RFC
 version number: 0.0.1
 author: Erasmo Montes
 
+[![Build
+Status](https://travis-ci.org/erasmo07/lib_saprfc.svg?branch=master)](https://travis-ci.org/erasmo07/lib_saprfc)
+
 Overview
 --------
 
