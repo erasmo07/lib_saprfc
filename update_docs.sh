@@ -9,7 +9,7 @@ cd ..
 # commit and push
 git add -A
 git commit -m "building and pushing docs"
-git push origin master
+git push origin feature/docs 
 
 # switch branches and pull the data we want
 git checkout gh-pages
@@ -23,4 +23,4 @@ git commit -m "publishing updated docs..."
 git push origin gh-pages
 
 # switch back
-git checkout master
+git checkout develop

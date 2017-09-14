@@ -4,6 +4,9 @@ Lib Sap RFC
 version number: 0.0.1
 author: Erasmo Montes
 
+[![Build
+Status](https://travis-ci.org/erasmo07/lib_saprfc.svg?branch=master)](https://travis-ci.org/erasmo07/lib_saprfc)
+
 Overview
 --------
 
@@ -19,7 +22,7 @@ To install use pip:
 
 Or clone the repo:
 
-    $ git clone https://github.com/emontes/lib_saprfc.git
+    $ git clone https://erasmo_montes@bitbucket.org/erasmo_montes/lib-saprfc.git 
     $ python setup.py install
     
 Contributing
