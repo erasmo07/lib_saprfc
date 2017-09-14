@@ -1,11 +1,10 @@
-import sys
 import os
 try:
     from sapnwrfc import base as sap_base
 except:
     pass
-from exceptions import DontHaveAttribute, IError
-from process import ProcessError, ProcessStructure
+from .exceptions import DontHaveAttribute, IError
+from .process import ProcessError, ProcessStructure
 
 
 class ApiClient(object):
@@ -17,41 +16,40 @@ class ApiClient(object):
             self._config() -> it load the config to connect to sap.
             self._connection = -> It containt the instaces of connection.
     """
+    connection = None
 
-    def __init__(self):
-        self._config()
-        self._connection = None
-        self._connect()
+    def __new__(cls, *args, **kwargs):
+        cls._config()
+        cls.connection = cls._connect()
+        print("se creo una conneccion")
+        return super(ApiClient, cls).__new__(cls, *args, **kwargs)
 
-    def _config(self):
+    @staticmethod
+    def _config():
         """
         This load the config to connect to sap.
         It fuction does not return value.
         """
         project_root = os.path.dirname(__file__)
-        sap_base.config_location = os.path.join(
-            project_root, 'conf/sap.qa.yml')
-        sap_base.load_config()
+        if sap_base:
+            sap_base.config_location = os.path.join(
+                project_root, 'conf/sap.qa.yml')
+            sap_base.load_config()
 
-    def _connect(self):
+    @staticmethod
+    def _connect():
         """
         This function create a connection in SAP.
 
         Return:
             connection
         """
-        try:
-            if not self._connection:
-                self._connection = sap_base.rfc_connect()
-            return self._connection
-        except Exception as error:
-            print error
-            sys.exit(1)
+        return sap_base.rfc_connect()
 
     def _add_parameter(self, function, parameters):
         """ This function add attr to functon.
 
-        Parameter:
+        Paramter:
             function: The instance of function in sap.
         Return:
             function: With all parameter was set
@@ -60,6 +58,7 @@ class ApiClient(object):
             try:
                 getattr(function, key)(value)
             except (AttributeError, TypeError):
+                print(key)
                 raise DontHaveAttribute(
                     'La function {0} no tiene el atributo {1}.'.format(
                         function.name, key))
@@ -74,7 +73,7 @@ class ApiClient(object):
         Return:
             instance of function discover
         """
-        return self._connection.discover(rfc_function)
+        return self.connection.discover(rfc_function)
 
     def get(self, rfc_function, parameters=None):
         """
@@ -106,8 +105,7 @@ class ApiClient(object):
         This method call a function in sap that insert values.
 
         Parameters:
-            rfc_function str(): the name of function in sap.
-            values dict(): all values that resive the function.
+            rfc_function str(): -> the function name.
 
         Return:
             Value send sap.
@@ -118,7 +116,7 @@ class ApiClient(object):
         # Create call function
         function = function_discover.create_function_call()
 
-        # Set parameters
+        # Set paramters
         self._add_parameter(function, values)
 
         # Execute Function in sap
@@ -139,13 +137,13 @@ class ApiClient(object):
             In case are error a exception with errors.
         """
         structure = function.handle.parameters
-        if 'I_ERROR' in structure.keys() and isinstance(
-                structure.get('I_ERROR').values, list):
+        if 'I_ERROR' in structure.keys() and \
+            isinstance(structure.get('I_ERROR').values, list):
             if structure.get('I_ERROR').values != []:
                 process_error = ProcessError(structure.get('I_ERROR').values)
                 raise IError(process_error.errors)
         return ProcessStructure(structure).data
 
     def __del__(self):
-        print 'Cerrando conexion sap'
-        self._connection.close()
+        self.connection.close()
+        print('Cerrando conexion sap')
