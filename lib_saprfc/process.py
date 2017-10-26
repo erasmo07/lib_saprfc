@@ -4,23 +4,25 @@ This contait all class about to process data obtain to sap.
         - It take the data obtaint of sap and proces that
           and put in data attribute.
 
-        Description of methods:
-            1 - process_data -> It process the query of sap
-                and convert in a list of dictionary.
-                Ex. [{'fieldsname': 'value of fieldnamd'}]
+    Description of methods:
+        1 - process_data -> It process the query of sap
+            and convert in a list of dictionary.
+            Ex. [{'fieldsname': 'value of fieldnamd'}]
 
-            2 - get_fields -> It return a list of field name
-                Ex. ['NAME1', "KUNNIR"]
+        2 - get_fields -> It return a list of field name
+            Ex. ['NAME1', "KUNNIR"]
 
 """
 
 
 class ProcessGeneric(object):
+    """ Class to process generic values of SAP. """
 
     def __init__(self, value_to_process):
         self._value_to_process = value_to_process
 
     def process_dictionary(self, dictionary):
+        """ Method to process values. """
         result = dict()
         for key, value in dictionary.items():
             if isinstance(value, int):
