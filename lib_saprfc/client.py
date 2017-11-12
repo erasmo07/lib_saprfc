@@ -2,7 +2,7 @@ import os
 try:
     from sapnwrfc import base as sap_base
 except:
-    pass
+    sap_base = None
 from .exceptions import DontHaveAttribute, IError
 from .process import ProcessError, ProcessStructure
 
@@ -33,7 +33,7 @@ class ApiClient(object):
         project_root = os.path.dirname(__file__)
         if sap_base:
             sap_base.config_location = os.path.join(
-                project_root, 'conf/sap.qa.yml')
+                project_root, 'conf/sap.dev.yml')
             sap_base.load_config()
 
     @staticmethod
