@@ -21,7 +21,7 @@ class ApiClient(object):
     def __new__(cls, *args, **kwargs):
         cls._config()
         cls.connection = cls._connect()
-        print "se creo una conneccion"
+        print("se creo una conneccion")
         return super(ApiClient, cls).__new__(cls, *args, **kwargs)
 
     @staticmethod
@@ -145,4 +145,4 @@ class ApiClient(object):
 
     def __del__(self):
         self.connection.close()
-        print 'Cerrando conexion sap'
+        print('Cerrando conexion sap')
