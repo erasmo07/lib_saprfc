@@ -24,9 +24,6 @@ class TestApiClient(TestCase):
         # Value to send
         cls = ApiClient
 
-        # Expect value
-        path = '/Users/mazy/Documents/Projects/lib_saprfc/lib_saprfc/conf/sap.dev.yml'
-
         # Mock
         sap_base = MagicMock()
         sap_base.config_location = None
@@ -38,4 +35,5 @@ class TestApiClient(TestCase):
 
         # Validation
         mock_sap_base.load_config.assert_called()
-        self.assertEqual(mock_sap_base.config_location, path)
+        self.assertIsNotNone(mock_sap_base.config_location)
+        self.assertIsInstance(mock_sap_base.config_location, str)
